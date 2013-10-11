@@ -49,6 +49,16 @@
          <string>Heap Sort</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>Counting Sort</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Merge Sort</string>
+        </property>
+       </item>
       </widget>
      </item>
      <item>
@@ -73,6 +83,16 @@
          <string>Heap Sort</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>Counting Sort</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Merge Sort</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>
@@ -94,7 +114,7 @@
       <widget class="QComboBox" name="arrayConfig">
        <item>
         <property name="text">
-         <string>Aleatório</string>
+         <string>Aleatório </string>
         </property>
        </item>
        <item>
@@ -109,7 +129,7 @@
        </item>
        <item>
         <property name="text">
-         <string>Pré-definido</string>
+         <string>Aleatório pré-definido</string>
         </property>
        </item>
       </widget>

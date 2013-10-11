@@ -92,6 +92,8 @@ public:
          << QApplication::translate("MainWindow", "Shell Sort", 0)
          << QApplication::translate("MainWindow", "Bubble Sort", 0)
          << QApplication::translate("MainWindow", "Heap Sort", 0)
+         << QApplication::translate("MainWindow", "Counting Sort", 0)
+         << QApplication::translate("MainWindow", "Merge Sort", 0)
         );
         sortB->clear();
         sortB->insertItems(0, QStringList()
@@ -99,14 +101,16 @@ public:
          << QApplication::translate("MainWindow", "Shell Sort", 0)
          << QApplication::translate("MainWindow", "Bubble Sort", 0)
          << QApplication::translate("MainWindow", "Heap Sort", 0)
+         << QApplication::translate("MainWindow", "Counting Sort", 0)
+         << QApplication::translate("MainWindow", "Merge Sort", 0)
         );
         groupBox_2->setTitle(QApplication::translate("MainWindow", "Configura\303\247\303\243o do Array:", 0));
         arrayConfig->clear();
         arrayConfig->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "Aleat\303\263rio", 0)
+         << QApplication::translate("MainWindow", "Aleat\303\263rio ", 0)
          << QApplication::translate("MainWindow", "Ordenado", 0)
          << QApplication::translate("MainWindow", "Invertido", 0)
-         << QApplication::translate("MainWindow", "Pr\303\251-definido", 0)
+         << QApplication::translate("MainWindow", "Aleat\303\263rio pr\303\251-definido", 0)
         );
         compareButton->setText(QApplication::translate("MainWindow", "Comparar", 0));
     } // retranslateUi

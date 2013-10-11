@@ -1,3 +1,11 @@
+/*
+Insercao - Insertion, Shell
+Troca - Bubble
+Selecao - Heap
+
+*/
+
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <time.h>
@@ -101,6 +109,19 @@ int MainWindow::runSorts ()
                 heapsort(a,nElem);
                 clock_gettime(CLOCK_REALTIME, &tpe);
                 printf("heapSort\n");
+                break;
+
+            case 5:
+                clock_gettime(CLOCK_REALTIME, &tps);
+                countingSort(a,nElem);
+                clock_gettime(CLOCK_REALTIME, &tpe);
+                printf("countingSortSort\n");
+                break;
+            case 6:
+                clock_gettime(CLOCK_REALTIME, &tps);
+                mergeSort(a,nElem);
+                clock_gettime(CLOCK_REALTIME, &tpe);
+                printf("mergeSort\n");
                 break;
             }
 
@@ -238,6 +259,102 @@ void MainWindow::heapsort(int *array, int arraySize)
         maxHeapify(array,0,--arraySize);
     }
 }
+
+/*---------------------COUNTING---------------*/
+void MainWindow::countingSort(int arr[], int sz) {
+    int i, j, k;
+    int idx = 0;
+    int min, max;
+
+    min = max = arr[0];
+    for(i = 1; i < sz; i++) {
+        min = (arr[i] < min) ? arr[i] : min;
+        max = (arr[i] > max) ? arr[i] : max;
+    }
+
+    k = max - min + 1;
+    /* creates k buckets */
+    int *B = new int [k];
+    for(i = 0; i < k; i++) B[i] = 0;
+
+    for(i = 0; i < sz; i++) B[arr[i] - min]++;
+    for(i = min; i <= max; i++)
+        for(j = 0; j < B[i - min]; j++) arr[idx++] = i;
+
+    delete [] B;
+}
+
+
+
+/*---------------------MERGE-------------------*/
+void MainWindow::merge(int vec[], int vecSize) {
+    int mid;
+    int i, j, k;
+    int* tmp;
+
+    tmp = (int*) malloc(vecSize * sizeof(int));
+    if (tmp == NULL) {
+        exit(1);
+    }
+
+    mid = vecSize / 2;
+
+    i = 0;
+    j = mid;
+    k = 0;
+    while (i < mid && j < vecSize) {
+        if (vec[i] < vec[j]) {
+            tmp[k] = vec[i++];
+        }
+        else {
+            tmp[k] = vec[j++];
+        }
+        ++k;
+    }
+
+    if (i == mid) {
+        while (j < vecSize) {
+            tmp[k++] = vec[j++];
+        }
+    }
+    else {
+        while (i < mid) {
+            tmp[k++] = vec[i++];
+
+        }
+    }
+
+    for (i = 0; i < vecSize; ++i) {
+        vec[i] = tmp[i];
+    }
+
+    free(tmp);
+}
+
+void MainWindow::mergeSort(int vec[], int vecSize) {
+    int mid;
+
+    if (vecSize > 1) {
+        mid = vecSize / 2;
+        mergeSort(vec, mid);
+        mergeSort(vec + mid, vecSize - mid);
+        merge(vec, vecSize);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*---------------------ARRAY OPERATIONS---------------*/
 void MainWindow::randomArray (int *a, int aSize, int maxValue)

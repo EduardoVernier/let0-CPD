@@ -28,7 +28,9 @@ public:
     int bSearch (int*a, int aSize, int toBeFound);
     void printArray (int*a,int aSize);
     void definedArray(int*a,int nElem);
-
+    void countingSort(int arr[], int sz);
+    void mergeSort(int vec[], int vecSize);
+    void merge(int vec[], int vecSize);
 
 
 private slots:
