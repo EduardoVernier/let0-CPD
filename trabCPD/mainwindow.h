@@ -15,9 +15,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     int runSorts();
-    void insertionSort (int *a, int aSize, long *nComp, long *nSwaps);
-    void shellSort (int *a, int aSize, long *nComp, long *nSwaps);
-    void bubbleSort (int *a, int aSize, long *nComp, long *nSwaps);
+    void insertionSort (int *a, int aSize);
+    void shellSort (int *a, int aSize);
+    void bubbleSort (int *a, int aSize);
     void buildMaxHeap(int *array, int arraySize);
     void heapsort(int *array, int arraySize);
     void maxHeapify(int *array, int index, int arraySize);
@@ -31,6 +31,8 @@ public:
     void countingSort(int arr[], int sz);
     void mergeSort(int vec[], int vecSize);
     void merge(int vec[], int vecSize);
+    void quickSort(int *vetor, int inicio, int fim);
+
 
 
 private slots:

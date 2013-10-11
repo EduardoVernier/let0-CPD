@@ -94,6 +94,7 @@ public:
          << QApplication::translate("MainWindow", "Heap Sort", 0)
          << QApplication::translate("MainWindow", "Counting Sort", 0)
          << QApplication::translate("MainWindow", "Merge Sort", 0)
+         << QApplication::translate("MainWindow", "Quick Sort", 0)
         );
         sortB->clear();
         sortB->insertItems(0, QStringList()
@@ -103,6 +104,7 @@ public:
          << QApplication::translate("MainWindow", "Heap Sort", 0)
          << QApplication::translate("MainWindow", "Counting Sort", 0)
          << QApplication::translate("MainWindow", "Merge Sort", 0)
+         << QApplication::translate("MainWindow", "Quick Sort", 0)
         );
         groupBox_2->setTitle(QApplication::translate("MainWindow", "Configura\303\247\303\243o do Array:", 0));
         arrayConfig->clear();

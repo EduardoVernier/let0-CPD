@@ -49,6 +49,12 @@ elif s1 == 3:
     ss1 = "bubbleSort"
 elif s1 == 4:
     ss1 = "heapSort"
+elif s1 == 5:
+    ss1 = "countingSort"
+elif s1 == 6:
+    ss1 = "mergeSort"
+elif s1 == 7:
+    ss1 = "quickSort"
 
 if s2 == 1:
     ss2 = "insertionSort"
@@ -58,6 +64,12 @@ elif s2 == 3:
     ss2 = "bubbleSort"
 elif s2 == 4:
     ss2 = "heapSort"
+elif s2 == 5:
+    ss2 = "countingSort"
+elif s2 == 6:
+    ss2 = "mergeSort"
+elif s2 == 7:
+    ss2 = "quickSort"
 
 fx=map (log10,fx)
 gx=map (log10,gx)
@@ -67,14 +79,16 @@ plot2 = pl.plot(gx,gy,'b', label = ss2)
 pl.xlabel("elements")
 pl.ylabel("nanoseconds")
 pl.legend( loc='upper left', numpoints = 1 )
+pl.title ("Time")
 
 pl.subplot(312)
 plot3 = pl.plot(fx,cfy,'--r')
 plot4 = pl.plot(gx,cgy,':b')
-#pl.title("Compares")
+pl.title("Compares")
 
 
 pl.subplot(313)
 plot5 = pl.plot(gx,sfy,'--r')
 plot6 = pl.plot(gx,sgy,':b')
+pl.title("Swaps")
 pl.show()

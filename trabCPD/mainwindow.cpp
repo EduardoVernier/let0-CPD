@@ -1,11 +1,3 @@
-/*
-Insercao - Insertion, Shell
-Troca - Bubble
-Selecao - Heap
-
-*/
-
-
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <time.h>
@@ -18,6 +10,7 @@ using namespace std;
 FILE *fp;
 FILE *arrayDef;
 int sortSwitch[2], arraySwitch;
+long nComp, nSwaps;
 
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
@@ -48,7 +41,6 @@ void MainWindow::on_compareButton_clicked()
 int MainWindow::runSorts ()
 {
     int k, nElem;
-    long nComp=0, nSwaps=0, hue;
     struct timespec tps, tpe;
 
     for (k=0; k<2; k++)
@@ -86,26 +78,25 @@ int MainWindow::runSorts ()
             {
             case 1:
                 clock_gettime(CLOCK_REALTIME, &tps);
-                insertionSort(a,nElem,&nComp,&nSwaps);
+                insertionSort(a,nElem);
                 clock_gettime(CLOCK_REALTIME, &tpe);
                 printf("insertionSort\n");
                 break;
 
             case 2:
                 clock_gettime(CLOCK_REALTIME, &tps);
-                shellSort(a,nElem,&nComp,&nSwaps);
+                shellSort(a,nElem);
                 clock_gettime(CLOCK_REALTIME, &tpe);
                 printf("shellSort\n");
                 break;
             case 3:
                 clock_gettime(CLOCK_REALTIME, &tps);
-                bubbleSort(a,nElem,&nComp,&nSwaps);
+                bubbleSort(a,nElem);
                 clock_gettime(CLOCK_REALTIME, &tpe);
                 printf("bubbleSort\n");
                 break;
             case 4:
                 clock_gettime(CLOCK_REALTIME, &tps);
-                //heapSort(a,nElem,&nComp,&nSwaps);
                 heapsort(a,nElem);
                 clock_gettime(CLOCK_REALTIME, &tpe);
                 printf("heapSort\n");
@@ -123,12 +114,17 @@ int MainWindow::runSorts ()
                 clock_gettime(CLOCK_REALTIME, &tpe);
                 printf("mergeSort\n");
                 break;
+            case 7:
+                clock_gettime(CLOCK_REALTIME, &tps);
+                quickSort(a,0,nElem);
+                clock_gettime(CLOCK_REALTIME, &tpe);
+                printf("quickSort\n");
+                break;
             }
 
             printf("%d %lu %lu %lu %lu\n", nElem, tpe.tv_sec-tps.tv_sec, tpe.tv_nsec-tps.tv_nsec, nComp,nSwaps);
             fprintf(fp, "%d %lu %lu %lu %lu\n",  nElem, tpe.tv_sec-tps.tv_sec, tpe.tv_nsec-tps.tv_nsec, nComp,nSwaps);
 
-            printf("isSorted: %d  \n", isSorted(a,nElem-1,&hue));
             free (a);
         }
     }
@@ -139,7 +135,7 @@ return 1;
 
 
 /*-------------------------INSERTION-------------------------------*/
-void MainWindow::insertionSort (int *a, int aSize, long *nComp, long *nSwaps)
+void MainWindow::insertionSort (int *a, int aSize)
 {
     int temp;
     int i,j;
@@ -159,7 +155,7 @@ void MainWindow::insertionSort (int *a, int aSize, long *nComp, long *nSwaps)
 
 
 /*---------------------------SHELL-------------------------------*/
-void MainWindow::shellSort (int *a, int aSize, long *nComp, long *nSwaps)
+void MainWindow::shellSort (int *a, int aSize)
 {
     int h = 1;
     int offset=0;
@@ -180,8 +176,8 @@ void MainWindow::shellSort (int *a, int aSize, long *nComp, long *nSwaps)
                 for (sj=si-h; sj>=0 && temp<a[sj]; sj=sj-h)
                 {
                     a[sj+h] = a[sj];
-                    (*nComp)++;
-                    (*nSwaps)++;
+                    nComp++;
+                    nSwaps++;
                 }
                 a[sj+h]=temp;
             }
@@ -191,7 +187,7 @@ void MainWindow::shellSort (int *a, int aSize, long *nComp, long *nSwaps)
 
 
 /*-------------------------BUBBLE-----------------------------*/
-void MainWindow::bubbleSort (int *a, int aSize, long *nComp, long *nSwaps)
+void MainWindow::bubbleSort (int *a, int aSize)
 {
     int i=0, j=0, temp;
 
@@ -204,9 +200,9 @@ void MainWindow::bubbleSort (int *a, int aSize, long *nComp, long *nSwaps)
                 temp = a[i];
                 a[i] = a[i+1];
                 a[i+1] = temp;
-                (*nSwaps)++;
+                nSwaps++;
             }
-            (*nComp)++;
+            nComp++;
         }
     }
 }
@@ -223,6 +219,8 @@ void MainWindow::maxHeapify(int *array, int index, int arraySize)
     if (leftChildIndex >= arraySize) return;
     else if (rightChildIndex >= arraySize)
     {
+        nComp++;
+        nSwaps++;
         rightChild = INT_MIN;
     }
     else rightChild = array[rightChildIndex];
@@ -232,6 +230,7 @@ void MainWindow::maxHeapify(int *array, int index, int arraySize)
 
     if (heapRoot < array[biggestChildIndex])
     {
+
         int temp = heapRoot;
         array[index] = array[biggestChildIndex];
         array[biggestChildIndex] = temp;
@@ -344,8 +343,34 @@ void MainWindow::mergeSort(int vec[], int vecSize) {
 
 
 
+/*----------------QUICK---------------*/
+void MainWindow::quickSort(int *vetor, int inicio, int fim)
+{
+   int pivo, aux, i, j, meio;
 
+   i = inicio;
+   j = fim;
 
+   meio = (int) ((i + j) / 2);
+   pivo = vetor[meio];
+
+   do{
+      while (vetor[i] < pivo) i = i + 1;
+      while (vetor[j] > pivo) j = j - 1;
+
+      if(i <= j){
+         aux = vetor[i];
+         vetor[i] = vetor[j];
+         vetor[j] = aux;
+         i = i + 1;
+         j = j - 1;
+      }
+   }while(j > i);
+
+   if(inicio < j) quickSort(vetor, inicio, j);
+   if(i < fim) quickSort(vetor, i, fim);
+
+}
 
 
 
