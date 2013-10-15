@@ -230,6 +230,8 @@ void MainWindow::maxHeapify(int *array, int index, int arraySize)
 
     if (heapRoot < array[biggestChildIndex])
     {
+        nComp++;
+        nSwaps++;
 
         int temp = heapRoot;
         array[index] = array[biggestChildIndex];
@@ -256,6 +258,8 @@ void MainWindow::heapsort(int *array, int arraySize)
         array[0] = array[arraySize - 1];
         array[arraySize-1] = temp;
         maxHeapify(array,0,--arraySize);
+        nComp++;
+
     }
 }
 
@@ -269,6 +273,8 @@ void MainWindow::countingSort(int arr[], int sz) {
     for(i = 1; i < sz; i++) {
         min = (arr[i] < min) ? arr[i] : min;
         max = (arr[i] > max) ? arr[i] : max;
+        nComp++;
+
     }
 
     k = max - min + 1;
@@ -276,9 +282,10 @@ void MainWindow::countingSort(int arr[], int sz) {
     int *B = new int [k];
     for(i = 0; i < k; i++) B[i] = 0;
 
-    for(i = 0; i < sz; i++) B[arr[i] - min]++;
+    for(i = 0; i < sz; i++, nComp++) B[arr[i] - min]++;
+
     for(i = min; i <= max; i++)
-        for(j = 0; j < B[i - min]; j++) arr[idx++] = i;
+        for(j = 0; j < B[i - min]; j++, nSwaps++) arr[idx++] = i;
 
     delete [] B;
 }
@@ -303,10 +310,16 @@ void MainWindow::merge(int vec[], int vecSize) {
     k = 0;
     while (i < mid && j < vecSize) {
         if (vec[i] < vec[j]) {
+            nComp++;
+            nSwaps++;
+
             tmp[k] = vec[i++];
         }
         else {
             tmp[k] = vec[j++];
+            nComp++;
+            nSwaps++;
+
         }
         ++k;
     }
@@ -314,17 +327,25 @@ void MainWindow::merge(int vec[], int vecSize) {
     if (i == mid) {
         while (j < vecSize) {
             tmp[k++] = vec[j++];
+            nComp++;
+            nSwaps++;
+
         }
     }
     else {
         while (i < mid) {
             tmp[k++] = vec[i++];
+            nComp++;
+            nSwaps++;
 
         }
     }
 
     for (i = 0; i < vecSize; ++i) {
         vec[i] = tmp[i];
+        nComp++;
+        nSwaps++;
+
     }
 
     free(tmp);
@@ -364,6 +385,8 @@ void MainWindow::quickSort(int *vetor, int inicio, int fim)
          vetor[j] = aux;
          i = i + 1;
          j = j - 1;
+         nComp++;
+         nSwaps++;
       }
    }while(j > i);
 
@@ -371,13 +394,6 @@ void MainWindow::quickSort(int *vetor, int inicio, int fim)
    if(i < fim) quickSort(vetor, i, fim);
 
 }
-
-
-
-
-
-
-
 
 
 
